@@ -2,11 +2,11 @@ import React from 'react'
 import Component from 'hyper/component'
 import publicIp from 'public-ip'
 import SvgIcon from '../utils/svg-icon'
+import { exec as ex } from 'child_process'
+
 
 function getIp() {
-  return new Promise(resolve => {
-    publicIp.v4().then(ip => resolve(ip)).catch(() => resolve('?.?.?.?'))
-  })
+    return exec('ip addr | grep 192 | cut -f1 -d "/"').then(ip => ip.split(" ").pop())
 }
 
 class PluginIcon extends Component {
@@ -82,4 +82,16 @@ export default class Ip extends Component {
       </div>
     )
   }
+}
+
+function exec(command, options) {
+  return new Promise((resolve, reject) => {
+    ex(command, options, (err, stdout, stderr) => {
+      if (err) {
+        reject(`${err}\n${stderr}`)
+      } else {
+        resolve(stdout)
+      }
+    })
+  })
 }

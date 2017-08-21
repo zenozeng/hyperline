@@ -45,7 +45,7 @@ export default class Docker extends Component {
   }
 
   setVersion() {
-    exec('/usr/local/bin/docker version -f {{.Server.Version}}')
+    exec('/usr/bin/env docker version -f {{.Server.Version}}')
       .then(version => {
         this.setState({ version })
       })
