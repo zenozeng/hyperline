@@ -9,4 +9,4 @@ import Time from './time'
 import Docker from './docker'
 import Thermal from './thermal'
 
-export default [Uptime, Ip, Memory, Cpu, Thermal]
+export default [Uptime, Ip, Memory, Cpu, Thermal, Network]
