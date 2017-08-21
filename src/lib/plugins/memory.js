@@ -74,7 +74,7 @@ export default class Memory extends Component {
       const totalWidth = totalMemory.toString().length
 
       return {
-        activeMemory: leftPad(activeMemory, totalWidth, 0),
+        activeMemory,
         totalMemory
       }
     })
