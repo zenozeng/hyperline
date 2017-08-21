@@ -1,22 +1,18 @@
 import React from 'react'
 import Component from 'hyper/component'
-import publicIp from 'public-ip'
 import SvgIcon from '../utils/svg-icon'
 import { exec as ex } from 'child_process'
 
 
-function getIp() {
-    return exec('ip addr | grep 192 | cut -f1 -d "/"').then(ip => ip.split(" ").pop()).catch((e) => {
-        console.log(e)
-        return "Failed to parse IP"
-    })
+function getTemp() {
+    return exec('cat /sys/class/thermal/thermal_zone0/temp').then(temp => (parseInt(temp) / 1000) + "℃")
 }
 
 class PluginIcon extends Component {
   styles() {
     return {
       'ip-icon': {
-        fill: '#fff'
+        fill: 'transparent'
       }
     }
   }
@@ -40,7 +36,7 @@ class PluginIcon extends Component {
   }
 }
 
-export default class Ip extends Component {
+export default class Thermal extends Component {
   static displayName() {
     return 'IP Address plugin'
   }
@@ -56,7 +52,7 @@ export default class Ip extends Component {
   }
 
   setIp() {
-    getIp().then(ip => this.setState({ ip }))
+    getTemp().then(ip => this.setState({ ip }))
   }
 
   componentDidMount() {
@@ -81,7 +77,7 @@ export default class Ip extends Component {
   template(css) {
     return (
       <div className={css('wrapper')}>
-        <PluginIcon /> {this.state.ip}
+        {this.state.ip}
       </div>
     )
   }

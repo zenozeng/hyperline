@@ -7,5 +7,6 @@ import Network from './network'
 import Battery from './battery'
 import Time from './time'
 import Docker from './docker'
+import Thermal from './thermal'
 
-export default [Uptime, Ip, Memory, Cpu]
+export default [Uptime, Ip, Memory, Cpu, Thermal]
