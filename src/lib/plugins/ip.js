@@ -6,7 +6,7 @@ import { exec as ex } from 'child_process'
 
 
 function getIp() {
-    return exec('ip addr | grep 192 | cut -f1 -d "/"').then(ip => ip.split(" ").pop()).catch((e) => {
+    return exec('ip addr | grep 192 | head -n1 | cut -f1 -d "/"').then(ip => ip.split(" ").pop()).catch((e) => {
         console.log(e)
         return "Failed to parse IP"
     })
